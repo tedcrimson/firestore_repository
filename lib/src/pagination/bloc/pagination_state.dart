@@ -39,7 +39,8 @@ class PaginationSuccess<T> extends PaginationState {
   List<Object> get props => [data, hasReachedMax, lastSnapshot];
 
   @override
-  String toString() => 'PaginationSuccess { data: ${data.length}, hasReachedMax: $hasReachedMax }';
+  String toString() =>
+      'PaginationSuccess { data: ${data.length}, hasReachedMax: $hasReachedMax }';
 }
 
 class PaginationUpdate<T> extends PaginationSuccess<T> {
@@ -48,7 +49,10 @@ class PaginationUpdate<T> extends PaginationSuccess<T> {
     List<T> data,
     DocumentSnapshot lastSnapshot,
     bool hasReachedMax,
-  }) : super(data: data, lastSnapshot: lastSnapshot, hasReachedMax: hasReachedMax);
+  }) : super(
+            data: data,
+            lastSnapshot: lastSnapshot,
+            hasReachedMax: hasReachedMax);
 
   factory PaginationUpdate.fromSuccess(PaginationSuccess<T> success) {
     return PaginationUpdate(

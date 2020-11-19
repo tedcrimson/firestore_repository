@@ -4,7 +4,8 @@ part 'exceptions.dart';
 part 'query_filter.dart';
 
 class FirestoreRepository extends CRUDRepository {
-  FirestoreRepository({FirebaseFirestore firestore, bool persistenceEnabled = false})
+  FirestoreRepository(
+      {FirebaseFirestore firestore, bool persistenceEnabled = false})
       : this.firestore = firestore ?? FirebaseFirestore.instance {
     this.firestore.settings = Settings(persistenceEnabled: persistenceEnabled);
   }
@@ -15,11 +16,17 @@ class FirestoreRepository extends CRUDRepository {
   DocumentReference doc(String path) => firestore.doc(path);
 
   Future<QuerySnapshot> getCollection(List<String> fields,
-      {List<QueryFilter> filters, DocumentSnapshot startAfter, int limit, GetOptions getOptions}) async {
-    return getQuery(fields, filters: filters, startAfter: startAfter, limit: limit).get(getOptions);
+      {List<QueryFilter> filters,
+      DocumentSnapshot startAfter,
+      int limit,
+      GetOptions getOptions}) async {
+    return getQuery(fields,
+            filters: filters, startAfter: startAfter, limit: limit)
+        .get(getOptions);
   }
 
-  Query getQuery(List<String> fields, {List<QueryFilter> filters, DocumentSnapshot startAfter, int limit}) {
+  Query getQuery(List<String> fields,
+      {List<QueryFilter> filters, DocumentSnapshot startAfter, int limit}) {
     if (fields.contains(null)) throw FirestoreNullArgumentException();
     if (fields.length % 2 == 0) throw FirestoreArgumentException();
     Query query = firestore.collection(fields.join('/'));

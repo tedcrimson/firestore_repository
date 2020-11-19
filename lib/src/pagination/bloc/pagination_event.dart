@@ -47,3 +47,18 @@ class PaginationAdded<T> extends PaginationModified<T> {
   @override
   String toString() => 'PaginationAdded(document: $document)';
 }
+
+class PaginationRemoved<T> extends PaginationModified<T> {
+  PaginationRemoved(T document) : super(document);
+
+  PaginationRemoved<T> copyWith({
+    T document,
+  }) {
+    return PaginationRemoved<T>(
+      document ?? this.document,
+    );
+  }
+
+  @override
+  String toString() => 'PaginationRemoved(document: $document)';
+}

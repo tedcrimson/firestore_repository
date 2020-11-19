@@ -56,7 +56,8 @@ class _PaginationListState<T> extends State<PaginationList<T>> {
     return BlocBuilder<PaginationBloc<T>, PaginationState>(
       cubit: paginationBloc,
       builder: (BuildContext context, PaginationState state) {
-        if (args.customBuilder != null) return args.customBuilder(context, state);
+        if (args.customBuilder != null)
+          return args.customBuilder(context, state);
         if (state is PaginationInitial) {
           if (args.onInitial != null)
             return args.onInitial(context, state);
@@ -95,12 +96,14 @@ class _PaginationListState<T> extends State<PaginationList<T>> {
                   return args.loadingWidget ?? CircularProgressIndicator();
                 } else {
                   PaginationSuccess<T> success = state;
-                  if (args.buildItem != null) return args.buildItem(context, success, index);
+                  if (args.buildItem != null)
+                    return args.buildItem(context, success, index);
                   return Text(data[index].toString());
                 }
               },
               itemCount: data.length + 1,
-              controller: args.scrollController != null ? null : scrollController,
+              controller:
+                  args.scrollController != null ? null : scrollController,
             );
         }
         return Center(child: Text("unknown state"));

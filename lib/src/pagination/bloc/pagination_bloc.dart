@@ -38,6 +38,8 @@ class PaginationBloc<T> extends Bloc<PaginationEvent, PaginationState> {
         var converted = await converter(event.document);
         if (event is PaginationAdded) {
           currentState.data.insert(0, converted);
+        } else if (event is PaginationRemoved) {
+          currentState.data.remove(converted);
         } else {
           var index = currentState.data.indexWhere((element) => element == converted);
           if (index >= 0) {
@@ -82,6 +84,8 @@ class PaginationBloc<T> extends Bloc<PaginationEvent, PaginationState> {
             add(PaginationAdded(change.doc));
           else if (change.type == DocumentChangeType.modified) {
             add(PaginationModified(change.doc));
+          } else if (change.type == DocumentChangeType.removed) {
+            add(PaginationRemoved(change.doc));
           }
         }
       }

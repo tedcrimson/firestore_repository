@@ -7,5 +7,7 @@ import 'bloc/pagination_bloc.dart';
 
 typedef Converter<T> = FutureOr<T> Function(DocumentSnapshot snapshot);
 
-typedef StateChange<T extends PaginationState> = Widget Function(BuildContext context, T state);
-typedef PaginationItemBuilder<T> = Widget Function(BuildContext context, PaginationSuccess<T> state, int index);
+typedef StateChange<T extends PaginationState> = Widget Function(
+    BuildContext context, T state);
+typedef PaginationItemBuilder<T> = Widget Function(
+    BuildContext context, PaginationSuccess<T> state, int index);

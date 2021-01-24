@@ -9,7 +9,8 @@ part 'pagination_event.dart';
 part 'pagination_state.dart';
 
 class PaginationBloc<T> extends Bloc<PaginationEvent, PaginationState> {
-  PaginationBloc(this.query, this.converter, {this.limit = 20}) : super(PaginationInitial()) {
+  PaginationBloc(this.query, this.converter, {this.limit = 20})
+      : super(PaginationInitial()) {
     _addListener();
   }
 
@@ -41,7 +42,8 @@ class PaginationBloc<T> extends Bloc<PaginationEvent, PaginationState> {
         } else if (event is PaginationRemoved) {
           currentState.data.remove(converted);
         } else {
-          var index = currentState.data.indexWhere((element) => element == converted);
+          var index =
+              currentState.data.indexWhere((element) => element == converted);
           if (index >= 0) {
             print(index);
             currentState.data[index] = converted;
@@ -62,7 +64,10 @@ class PaginationBloc<T> extends Bloc<PaginationEvent, PaginationState> {
             var converted = await converter(raw);
             data.add(converted);
           }
-          yield PaginationSuccess<T>(data: data, hasReachedMax: data.length < limit, lastSnapshot: last);
+          yield PaginationSuccess<T>(
+              data: data,
+              hasReachedMax: data.length < limit,
+              lastSnapshot: last);
         } else if (currentState is PaginationSuccess<T>) {
           yield* _mapPaginationSuccess(currentState);
         }
@@ -77,7 +82,8 @@ class PaginationBloc<T> extends Bloc<PaginationEvent, PaginationState> {
     _listener = query.snapshots().listen((event) async {
       // return;
       if (state is PaginationInitial) {
-        add(PaginationFetched(documents: event.docChanges.map((e) => e.doc).toList()));
+        add(PaginationFetched(
+            documents: event.docChanges.map((e) => e.doc).toList()));
       } else {
         for (var change in event.docChanges) {
           if (change.type == DocumentChangeType.added)
@@ -92,7 +98,8 @@ class PaginationBloc<T> extends Bloc<PaginationEvent, PaginationState> {
     });
   }
 
-  Stream<PaginationSuccess<T>> _mapPaginationSuccess(PaginationSuccess<T> currentState) async* {
+  Stream<PaginationSuccess<T>> _mapPaginationSuccess(
+      PaginationSuccess<T> currentState) async* {
     final rawdata = await _fetchPaginations(currentState.lastSnapshot, limit);
     final last = rawdata.isNotEmpty ? rawdata.last : currentState.lastSnapshot;
 
@@ -111,9 +118,11 @@ class PaginationBloc<T> extends Bloc<PaginationEvent, PaginationState> {
       );
   }
 
-  bool _hasReachedMax(PaginationState state) => state is PaginationSuccess && state.hasReachedMax;
+  bool _hasReachedMax(PaginationState state) =>
+      state is PaginationSuccess && state.hasReachedMax;
 
-  Future<List<QueryDocumentSnapshot>> _fetchPaginations(DocumentSnapshot startAfter, int limit) async {
+  Future<List<QueryDocumentSnapshot>> _fetchPaginations(
+      DocumentSnapshot startAfter, int limit) async {
     var q = query;
     if (startAfter != null) q = q.startAfterDocument(startAfter);
 

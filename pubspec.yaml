@@ -1,6 +1,6 @@
 name: firestore_repository
 description: A new Flutter package project.
-version: 0.0.1+2
+version: 0.0.2
 homepage: https://github.com/tedcrimson/firestore_repository
 
 environment:
@@ -10,9 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: ^0.7.0
-  cloud_firestore: ^0.16.0
-  bloc: ^6.1.1
-  flutter_bloc: ^6.1.1
-  equatable: ^1.2.5
-  rxdart: ^0.25.0
+  firebase_core: ^1.0.2
+  cloud_firestore: ^1.0.3
+  bloc: ^7.0.0
+  flutter_bloc: ^7.0.0
+  equatable: ^2.0.0
+  rxdart: ^0.26.0

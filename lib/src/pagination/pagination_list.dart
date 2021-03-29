@@ -54,7 +54,7 @@ class _PaginationListState<T> extends State<PaginationList<T>> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PaginationBloc<T>, PaginationState>(
-      cubit: paginationBloc,
+      bloc: paginationBloc,
       builder: (BuildContext context, PaginationState state) {
         if (args.customBuilder != null)
           return args.customBuilder(context, state);
